@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-class Album {
+class Cooperativas {
   final int userId;
   final int id;
   final String title;
 
-  const Album({
+  const Cooperativas({
     required this.userId,
     required this.id,
     required this.title,
   });
 
-  Album copyWith({
+  Cooperativas copyWith({
     int? userId,
     int? id,
     String? title,
   }) {
-    return Album(
+    return Cooperativas(
       userId: userId ?? this.userId,
       id: id ?? this.id,
       title: title ?? this.title,
@@ -31,8 +31,8 @@ class Album {
     };
   }
 
-  factory Album.fromMap(Map<String, dynamic> map) {
-    return Album(
+  factory Cooperativas.fromMap(Map<String, dynamic> map) {
+    return Cooperativas(
       userId: map['userId']?.toInt() ?? 0,
       id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
@@ -41,16 +41,17 @@ class Album {
 
   String toJson() => json.encode(toMap());
 
-  factory Album.fromJson(String source) => Album.fromMap(json.decode(source));
+  factory Cooperativas.fromJson(String source) =>
+      Cooperativas.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Album(userId: $userId, id: $id, title: $title)';
+  String toString() => 'Cooperativas(userId: $userId, id: $id, title: $title)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Album &&
+    return other is Cooperativas &&
         other.userId == userId &&
         other.id == id &&
         other.title == title;
