@@ -1,41 +1,48 @@
 import 'dart:convert';
 
-class Cooperativas {
-  final int userId;
-  final int id;
-  final String title;
+import 'package:flutter/widgets.dart';
 
-  const Cooperativas({
-    required this.userId,
+class Cooperativas {
+  final int? id;
+  final String nome;
+  final String presidente;
+  final String fone;
+  Cooperativas({
     required this.id,
-    required this.title,
+    required this.nome,
+    required this.presidente,
+    required this.fone,
   });
 
   Cooperativas copyWith({
-    int? userId,
-    int? id,
-    String? title,
+    ValueGetter<int?>? id,
+    String? nome,
+    String? presidente,
+    String? fone,
   }) {
     return Cooperativas(
-      userId: userId ?? this.userId,
-      id: id ?? this.id,
-      title: title ?? this.title,
+      id: id != null ? id() : this.id,
+      nome: nome ?? this.nome,
+      presidente: presidente ?? this.presidente,
+      fone: fone ?? this.fone,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'userId': userId,
       'id': id,
-      'title': title,
+      'nome': nome,
+      'presidente': presidente,
+      'fone': fone,
     };
   }
 
   factory Cooperativas.fromMap(Map<String, dynamic> map) {
     return Cooperativas(
-      userId: map['userId']?.toInt() ?? 0,
-      id: map['id']?.toInt() ?? 0,
-      title: map['title'] ?? '',
+      id: map['id']?.toInt(),
+      nome: map['nome'] ?? '',
+      presidente: map['presidente'] ?? '',
+      fone: map['fone'] ?? '',
     );
   }
 
@@ -45,20 +52,23 @@ class Cooperativas {
       Cooperativas.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Cooperativas(userId: $userId, id: $id, title: $title)';
+  String toString() {
+    return 'Cooperativas(id: $id, nome: $nome, presidente: $presidente, fone: $fone)';
+  }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is Cooperativas &&
-        other.userId == userId &&
         other.id == id &&
-        other.title == title;
+        other.nome == nome &&
+        other.presidente == presidente &&
+        other.fone == fone;
   }
 
   @override
-  int get hashCode => userId.hashCode ^ id.hashCode ^ title.hashCode;
-
-  mergeFromProto3Json(decode, {required bool ignoreUnknownFields}) {}
+  int get hashCode {
+    return id.hashCode ^ nome.hashCode ^ presidente.hashCode ^ fone.hashCode;
+  }
 }
