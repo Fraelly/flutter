@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:random_user/consumir___api.dart';
-import 'package:random_user/key.dart';
 import 'package:random_user/models/cooperativa_model.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -39,6 +35,16 @@ class _HomePageState extends State<HomePage> {
   //   }
   // }
 
+  alert(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+      action: SnackBarAction(
+        label: 'Fechar',
+        onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,31 +55,30 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(
         future: Api().getCooperativas(),
         builder: (context, AsyncSnapshot<List<Cooperativas>> snapshot) {
-          return ListView.builder(itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.cyan[50]),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(snapshot.data![index].nome),
-                      Text(snapshot.data![index].presidente),
-                      Text(snapshot.data![index].fone),
-                    ],
+          return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: InkWell(
+                    onTap: () => alert('Tok no Containe'),
+                    child: Ink(
+                      decoration: BoxDecoration(color: Colors.cyan[50]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(snapshot.data![index].nome),
+                            Text(snapshot.data![index].presidente),
+                            Text(snapshot.data![index].fone),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          });
-
-          // data != null
-          //     ? ListTile(
-          //         title: Text(data!.nome),
-          //       )
-          //     : const Text('erroooooooo');
+                );
+              });
         },
       ),
     );
