@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:random_user/key.dart';
+import 'package:random_user/domain/key.dart';
 import 'package:http/http.dart' as http;
 
-import 'models/cooperativa_model.dart';
+import '../models/cooperativa_model.dart';
 
 class Api {
   List<Cooperativas> cooperativasDisplayList = [];

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:random_user/key.dart';
+import 'package:random_user/domain/key.dart';
 
 void main() {
   test('consumir   api ...', () async {

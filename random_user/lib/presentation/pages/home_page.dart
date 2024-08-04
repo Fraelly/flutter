@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:random_user/consumir___api.dart';
-import 'package:random_user/models/cooperativa_model.dart';
+import 'package:random_user/data/repository/consumir___api.dart';
+import 'package:random_user/data/models/cooperativa_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,6 +45,8 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 
+  final cooperativas = Api().getCooperativas();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,41 +54,34 @@ class _HomePageState extends State<HomePage> {
         title: const Text('ola'),
         backgroundColor: Colors.amberAccent,
       ),
-      body: Column(
-        children: [
-          Container(
-            child: Text,
-          ),
-          FutureBuilder(
-            future: Api().getCooperativas(),
-            builder: (context, AsyncSnapshot<List<Cooperativas>> snapshot) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: InkWell(
-                        onTap: () => alert('Tok no Containe'),
-                        child: Ink(
-                          decoration: BoxDecoration(color: Colors.cyan[50]),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(snapshot.data![index].nome),
-                                Text(snapshot.data![index].presidente),
-                                Text(snapshot.data![index].fone),
-                              ],
-                            ),
-                          ),
+      body: FutureBuilder(
+        future: cooperativas,
+        builder: (context, AsyncSnapshot<List<Cooperativas>> snapshot) {
+          return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: InkWell(
+                    onTap: () => alert('Tok no Containe'),
+                    child: Ink(
+                      decoration: BoxDecoration(color: Colors.cyan[50]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(snapshot.data![index].nome),
+                            Text(snapshot.data![index].presidente),
+                            Text(snapshot.data![index].fone),
+                          ],
                         ),
                       ),
-                    );
-                  });
-            },
-          ),
-        ],
+                    ),
+                  ),
+                );
+              });
+        },
       ),
     );
   }
