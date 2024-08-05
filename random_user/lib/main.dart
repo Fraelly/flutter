@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_user/presentation/pages/detail.dart';
 import 'package:random_user/presentation/pages/home_page.dart';
 
 void main() => runApp(const MyApp());
@@ -12,10 +13,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.green,
+        ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      // home: const HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/detail': (context) => const DetailPage(),
+      },
     );
   }
 }

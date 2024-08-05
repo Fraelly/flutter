@@ -10,31 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Api api = Api()..getCooperativas();
-
-  // List<Cooperativas> cooperativasDisplayList = [];
-
-  // Future<List<Cooperativas>> getCooperativas() async {
-  //   final response =
-  //       await http.get(Uri.parse(urlBase), headers: {'apikey': apikey});
-  //   var data = jsonDecode(response.body.toString());
-
-  //   //check if the response request was srccessful or not.
-  //   if (response.statusCode == 200) {
-  //     for (Map i in data) {
-  //       Cooperativas cooperativas = Cooperativas(
-  //           nome: i['nome'],
-  //           id: 0,
-  //           presidente: i['presidente'],
-  //           fone: i['fone']);
-  //       cooperativasDisplayList.add(cooperativas);
-  //     }
-  //     return cooperativasDisplayList;
-  //   } else {
-  //     return cooperativasDisplayList;
-  //   }
-  // }
-
   alert(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(msg),
@@ -51,8 +26,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ola'),
-        backgroundColor: Colors.amberAccent,
+        title: const Text('title'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: FutureBuilder(
         future: cooperativas,
@@ -63,7 +38,8 @@ class _HomePageState extends State<HomePage> {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: InkWell(
-                    onTap: () => alert('Tok no Containe'),
+                    onTap: () => Navigator.of(context).pushNamed('/detail',
+                        arguments: {'title': 'Para Home'}),
                     child: Ink(
                       decoration: BoxDecoration(color: Colors.cyan[50]),
                       child: Padding(
